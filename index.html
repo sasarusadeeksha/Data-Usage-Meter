@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>DataUsageMonitor – Smart Internet Usage Tracker</title>
+  <meta name="description" content="DataUsageMonitor is a lightweight Windows app that tracks daily internet usage, Wi‑Fi usage per network, speed, limits, and history with a modern UI." />
+  <style>
+    :root {
+      --bg: #0f1217;
+      --card: #171b22;
+      --text: #e8ecf1;
+      --muted: #9aa4b2;
+      --accent1: #00e0ff;
+      --accent2: #0099ff;
+      --danger: #ff5c5c;
+      --radius: 18px;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, Cantarell, 'Helvetica Neue', Arial;
+      color: var(--text);
+      background: radial-gradient(1200px 600px at 20% -10%, #11223355, transparent), var(--bg);
+    }
+    a { color: inherit; text-decoration: none; }
+    .container { max-width: 1100px; margin: 0 auto; padding: 32px 20px; }
+
+    /* Header */
+    header {
+      display: grid;
+      grid-template-columns: 1.2fr 1fr;
+      gap: 32px;
+      align-items: center;
+      padding-top: 20px;
+    }
+    .badge {
+      display: inline-block;
+      padding: 6px 12px;
+      border-radius: 999px;
+      background: linear-gradient(90deg, #00e0ff33, #0099ff33);
+      color: var(--accent1);
+      font-weight: 600;
+      font-size: 12px;
+      border: 1px solid #00e0ff55;
+      margin-bottom: 14px;
+    }
+    h1 {
+      font-size: clamp(32px, 5vw, 48px);
+      line-height: 1.1;
+      margin: 0 0 14px 0;
+      letter-spacing: -0.02em;
+    }
+    .subtitle { color: var(--muted); font-size: 16px; max-width: 520px; }
+    .cta {
+      display: flex;
+      gap: 14px;
+      margin-top: 24px;
+      flex-wrap: wrap;
+    }
+    .btn {
+      padding: 14px 20px;
+      border-radius: 14px;
+      font-weight: 700;
+      border: none;
+      cursor: pointer;
+      transition: transform .1s ease, box-shadow .1s ease, background .1s ease;
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .btn-primary {
+      background: linear-gradient(90deg, var(--accent1), var(--accent2));
+      color: #061018;
+      box-shadow: 0 10px 30px #00e0ff33;
+    }
+    .btn-secondary {
+      background: #1e2430;
+      color: var(--text);
+      border: 1px solid #2a3242;
+    }
+    .btn:hover { transform: translateY(-1px); }
+
+    /* Hero Card */
+    .hero-card {
+      background: linear-gradient(180deg, #171b22, #141822);
+      border-radius: var(--radius);
+      border: 1px solid #242c3b;
+      padding: 22px;
+      position: relative;
+      overflow: hidden;
+    }
+    .hero-card::after {
+      content: '';
+      position: absolute;
+      inset: auto -40% -60% -40%;
+      height: 200px;
+      background: radial-gradient(60% 60% at 50% 100%, #00e0ff22, transparent);
+    }
+    .mock {
+      height: 280px;
+      border-radius: 14px;
+      background: linear-gradient(135deg, #0f131b, #0b0f15);
+      border: 1px solid #2a3242;
+      display: grid;
+      place-items: center;
+      color: var(--muted);
+      font-weight: 600;
+    }
+
+    /* Features */
+    section { margin-top: 72px; }
+    .section-title {
+      font-size: 28px;
+      margin-bottom: 10px;
+    }
+    .section-sub { color: var(--muted); margin-bottom: 28px; }
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 18px;
+    }
+    .card {
+      background: var(--card);
+      border: 1px solid #242c3b;
+      border-radius: var(--radius);
+      padding: 18px;
+    }
+    .card h3 { margin: 8px 0; }
+    .icon {
+      width: 40px; height: 40px; border-radius: 12px;
+      background: linear-gradient(135deg, #00e0ff33, #0099ff33);
+      display: grid; place-items: center;
+      font-weight: 900; color: var(--accent1);
+      border: 1px solid #00e0ff55;
+    }
+
+    /* Download */
+    .download {
+      display: grid;
+      grid-template-columns: 1.2fr .8fr;
+      gap: 24px;
+      align-items: center;
+    }
+    .code {
+      background: #0b0f15;
+      border: 1px solid #242c3b;
+      border-radius: 14px;
+      padding: 14px;
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+      color: #b8c3d6;
+      font-size: 13px;
+    }
+
+    /* Footer */
+    footer {
+      margin-top: 80px;
+      padding: 30px 0 10px;
+      border-top: 1px solid #242c3b;
+      color: var(--muted);
+      display: flex;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    @media (max-width: 900px) {
+      header, .download { grid-template-columns: 1fr; }
+      .mock { height: 220px; }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <header>
+      <div>
+        <span class="badge">Windows Utility App</span>
+        <h1>DataUsageMonitor</h1>
+        <p class="subtitle">
+          A lightweight, modern Windows app to track your daily internet usage per Wi‑Fi network,
+          monitor speeds, set limits, and view detailed history — all in real time.
+        </p>
+        <div class="cta">
+          <a class="btn btn-primary" href="#download">⬇ Download for Windows</a>
+          <a class="btn btn-secondary" href="#features">✨ Features</a>
+        </div>
+      </div>
+      <div class="hero-card">
+        <div class="mock">App UI Preview (Screenshot Here)</div>
+      </div>
+    </header>
+
+    <section id="features">
+      <h2 class="section-title">Why DataUsageMonitor?</h2>
+      <p class="section-sub">Designed for accuracy, performance, and a clean desktop experience.</p>
+      <div class="grid">
+        <div class="card">
+          <div class="icon">📊</div>
+          <h3>Daily Usage Tracking</h3>
+          <p>Tracks total or download-only usage with precise daily limits.</p>
+        </div>
+        <div class="card">
+          <div class="icon">📶</div>
+          <h3>Per Wi‑Fi Network</h3>
+          <p>Usage is saved per SSID so different networks have separate history.</p>
+        </div>
+        <div class="card">
+          <div class="icon">⚡</div>
+          <h3>Live Speed Monitor</h3>
+          <p>See real-time download and upload speeds directly on your desktop.</p>
+        </div>
+        <div class="card">
+          <div class="icon">🎨</div>
+          <h3>Custom Themes</h3>
+          <p>Choose accent colors and enjoy a modern, acrylic-style UI.</p>
+        </div>
+        <div class="card">
+          <div class="icon">🔔</div>
+          <h3>Smart Alerts</h3>
+          <p>Get notifications when you reach warning or critical usage levels.</p>
+        </div>
+        <div class="card">
+          <div class="icon">🗂</div>
+          <h3>History & Export</h3>
+          <p>View last 30 days and export usage data to CSV.</p>
+        </div>
+      </div>
+    </section>
+
+    <section id="download">
+      <h2 class="section-title">Download</h2>
+      <p class="section-sub">Get started in minutes. No signup required.</p>
+      <div class="download">
+        <div>
+          <a class="btn btn-primary" href="#">⬇ Download DataUsageMonitor.exe</a>
+          <p class="section-sub">Windows 10 / 11 • Portable or Installer</p>
+        </div>
+        <div class="code">
+<pre>
+System Requirements:
+- Windows 10 or later
+- Python-based bundled runtime
+- No admin privileges required
+
+Features:
+- Auto-start support
+- System tray integration
+- Lightweight background usage
+</pre>
+        </div>
+      </div>
+    </section>
+
+    <footer>
+      <div>© 2025 DataUsageMonitor</div>
+      <div>Built with Python & PyQt • Website by You</div>
+    </footer>
+  </div>
+</body>
+</html>
