@@ -1,3 +1,5 @@
+
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -11,8 +13,8 @@
       --card: #171b22;
       --text: #e8ecf1;
       --muted: #9aa4b2;
-      --accent1: #00e0ff;
-      --accent2: #0099ff;
+      --accent1: #0dbdd4;
+      --accent2: #09cf7ccc;
       --danger: #ff5c5c;
       --radius: 18px;
     }
@@ -168,6 +170,14 @@
       header, .download { grid-template-columns: 1fr; }
       .mock { height: 220px; }
     }
+  
+    .app-screenshot {
+      width: 100%;
+      border-radius: 14px;
+      border: 1px solid #2a3242;
+      box-shadow: 0 15px 40px rgba(0,0,0,0.5);
+    }
+
   </style>
 </head>
 <body>
@@ -186,7 +196,7 @@
         </div>
       </div>
       <div class="hero-card">
-        <div class="mock">App UI Preview (Screenshot Here)</div>
+        <img src="Screenshot.png" alt="App Screenshot" class="app-screenshot">
       </div>
     </header>
 
@@ -232,7 +242,17 @@
       <p class="section-sub">Get started in minutes. No signup required.</p>
       <div class="download">
         <div>
-          <a class="btn btn-primary" href="#">⬇ Download DataUsageMonitor.exe</a>
+          <a class="btn btn-primary"
+   href="https://github.com/sasarusadeeksha/Data-Usage-Meter/releases/download/v1.0/DataUsageMeter.exe">
+  ⬇ Download DataUsageMonitor.exe
+</a>
+
+<div style="margin-top:10px;">
+  <img
+    src="https://img.shields.io/github/downloads/sasarusadeeksha/Data-Usage-Meter/total?label=Total%20Downloads&color=0f131a&style=for-the-badge"
+    alt="Download count">
+</div>
+
           <p class="section-sub">Windows 10 / 11 • Portable or Installer</p>
         </div>
         <div class="code">
@@ -253,7 +273,7 @@ Features:
 
     <footer>
       <div>© 2025 DataUsageMonitor</div>
-      <div>Built with Python & PyQt • Website by You</div>
+      <div>Built with Python & PyQt • Website by github</div>
     </footer>
   </div>
 </body>
